@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "ds_tut"
+  site-url: "https://ephes.github.io/ds_tut"
+  description: "Base infrastructure for data science tutorials"
+  repo-branch: main
+  repo-url: "https://github.com/ephes/ds_tut"
