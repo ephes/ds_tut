@@ -2,5 +2,6 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 00_io.ipynb
-      - 01_core.ipynb
+      - 00_setup.ipynb
+      - 01_io.ipynb
+      - 02_datasets.ipynb
