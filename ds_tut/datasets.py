@@ -4,8 +4,6 @@
 __all__ = ['ReutersParser', 'ReutersCorpus', 'build_reuters_dataframe']
 
 # %% ../02_datasets.ipynb 3
-import pandas as pd
-
 from io import StringIO
 from collections import Counter
 import xml.etree.ElementTree as _et
@@ -216,7 +214,10 @@ class ReutersCorpus:
                 test.append(doc)
         return train, test
 
-    def build_dataframe(self, n=10):
+    def build_dataframe(self, df=None, n=10):
+        if df is None:
+            # the df parameter is only there to avoid a hard dependency to pandas
+            return None
         top_ten_ids, top_ten_names = self.top_n(n=n)
         train_docs, test_docs = self.split_modapte()
         docs = train_docs + test_docs
@@ -246,7 +247,7 @@ class ReutersCorpus:
             orig_labels.append(topics)
 
         # build dataframe
-        df = pd.DataFrame()
+        # df = pd.DataFrame()
         df["modapte"] = [d["modapte"] for d in docs]
         df["category"] = orig_labels
         df["label"] = train_labels + test_labels
