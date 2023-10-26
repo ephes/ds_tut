@@ -214,8 +214,8 @@ class ReutersCorpus:
                 test.append(doc)
         return train, test
 
-    def build_dataframe(self, df=None, n=10):
-        if df is None:
+    def build_dataframe(self, pd=None, n=10):
+        if pd is None:
             # the df parameter is only there to avoid a hard dependency to pandas
             return None
         top_ten_ids, top_ten_names = self.top_n(n=n)
@@ -247,7 +247,7 @@ class ReutersCorpus:
             orig_labels.append(topics)
 
         # build dataframe
-        # df = pd.DataFrame()
+        df = pd.DataFrame()
         df["modapte"] = [d["modapte"] for d in docs]
         df["category"] = orig_labels
         df["label"] = train_labels + test_labels
@@ -264,7 +264,10 @@ class ReutersCorpus:
         return df, top_ten_ids, train_labels, test_labels
 
 
-def build_reuters_dataframe(docs, topics, train_labels, test_labels, top_ten_ids):
+def build_reuters_dataframe(docs, topics, train_labels, test_labels, top_ten_ids, pd=None):
+    if pd is None:
+        # the df parameter is only there to avoid a hard dependency to pandas
+        return None    
     # remove gaps
     labels = train_labels + test_labels
     label_lookup = {}
