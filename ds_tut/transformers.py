@@ -28,7 +28,7 @@ class TextFromColumns(EmptyFitMixin, BaseEstimator, TransformerMixin):
         def join(items, axis=None):
             return " ".join([str(item) for item in items])
 
-        data = df[self.text_cols].apply(lambda x: "" if x[0] is None else x, axis=1)
+        data = df[self.text_cols].apply(lambda x: "" if x.iloc[0] is None else x, axis=1)
         texts = data.apply(join, axis=1)
         return texts
 
@@ -45,7 +45,7 @@ class TextFromColumns2(EmptyFitMixin, BaseEstimator, TransformerMixin):
         def join(items, axis=None):
             return " ".join([str(item) for item in items])
 
-        data = df[self.text_cols].apply(lambda x: "" if x[0] is None else x, axis=1)
+        data = df[self.text_cols].apply(lambda x: "" if x.iloc[0] is None else x, axis=1)
         texts = data.apply(join, axis=1)
         return texts
 
@@ -64,7 +64,7 @@ class TextStats(BaseEstimator, EmptyFitMixin, TransformerMixin):
         features = np.concatenate([f.values.reshape(-1, 1) for f in features], axis=1)
         where_are_NaNs = np.isnan(features)
         features[where_are_NaNs] = 0
-        return features.astype(np.float)
+        return features.astype(np.float64)
 
 # %% ../03_transformers.ipynb 6
 class ColumnSelector(EmptyFitMixin, BaseEstimator, TransformerMixin):
