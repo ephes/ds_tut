@@ -5,3 +5,4 @@ website:
       - 00_setup.ipynb
       - 01_io.ipynb
       - 02_datasets.ipynb
+      - 03_transformers.ipynb
