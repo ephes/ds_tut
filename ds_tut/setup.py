@@ -18,7 +18,7 @@ def running_in_colab():
 
 def setup_colab():
     "Sets up Colab"
-    assert IN_COLAB, "You do not appear to be running in Colab"
+    assert running_in_colab(), "You do not appear to be running in Colab"
 
 
 def setup():
