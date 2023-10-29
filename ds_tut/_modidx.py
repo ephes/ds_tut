@@ -47,4 +47,7 @@ d = { 'settings': { 'branch': 'main',
                                                                                'ds_tut/datasets.py'),
                                  'ds_tut.datasets.build_reuters_dataframe': ( 'datasets.html#build_reuters_dataframe',
                                                                               'ds_tut/datasets.py')},
-            'ds_tut.io': {'ds_tut.io.download_from_url': ('io.html#download_from_url', 'ds_tut/io.py')}}}
+            'ds_tut.io': {'ds_tut.io.download_from_url': ('io.html#download_from_url', 'ds_tut/io.py')},
+            'ds_tut.setup': { 'ds_tut.setup.running_in_colab': ('setup.html#running_in_colab', 'ds_tut/setup.py'),
+                              'ds_tut.setup.setup': ('setup.html#setup', 'ds_tut/setup.py'),
+                              'ds_tut.setup.setup_colab': ('setup.html#setup_colab', 'ds_tut/setup.py')}}}
