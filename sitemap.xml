@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ephes.github.io/ds_tut/index.html</loc>
+    <lastmod>2023-10-30T08:18:49.900Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ephes.github.io/ds_tut/setup.html</loc>
+    <lastmod>2023-10-30T08:18:48.840Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ephes.github.io/ds_tut/transformers.html</loc>
+    <lastmod>2023-10-30T08:18:47.604Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ephes.github.io/ds_tut/datasets.html</loc>
+    <lastmod>2023-10-30T08:18:48.468Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ephes.github.io/ds_tut/io.html</loc>
+    <lastmod>2023-10-30T08:18:49.252Z</lastmod>
+  </url>
+</urlset>

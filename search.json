@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ds_tut",
+    "section": "",
+    "text": "Some basic infrastructure for a Data Science Tutorial"
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "ds_tut",
+    "section": "Install",
+    "text": "Install\npip install ds_tut"
+  },
+  {
+    "objectID": "index.html#install-development-version",
+    "href": "index.html#install-development-version",
+    "title": "ds_tut",
+    "section": "Install Development Version",
+    "text": "Install Development Version\ngit clone https://github.com/ephes/ds_tut\ncd ds_tut\npython -m pip install -e \".[dev]\""
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "ds_tut",
+    "section": "How to use",
+    "text": "How to use\n\nDownload Datasets\n\nfrom pathlib import Path\n\narchive_name = \"reuters21578.tar.gz\"\ntraining_data_url = \"http://www.daviddlewis.com/resources/testcollections/reuters21578/{}\".format(archive_name)\ndata_root = Path.cwd() / \"data\"\ntraining_data_path = data_root / archive_name\ndata_size = download_from_url(training_data_url, training_data_path)\nprint(data_size)\n\n8150596"
+  },
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "setup",
+    "section": "",
+    "text": "source\n\nsetup\n\n setup ()\n\nSets up ds_tut. First run %pip install -Uqq ds_tut in a cell\n\nsource\n\n\nset_retina_mode\n\n set_retina_mode ()\n\nDoes the same thing as this %config magic:\n%config InlineBackend.figure_format = ‘retina’\n\nsource\n\n\nsetup_colab\n\n setup_colab ()\n\nSets up Colab\n\nsource\n\n\nrunning_in_colab\n\n running_in_colab ()\n\nCheck whether we are running in a Google Colab notebook.\n\nassert running_in_colab() is False"
+  },
+  {
+    "objectID": "transformers.html",
+    "href": "transformers.html",
+    "title": "transformers",
+    "section": "",
+    "text": "# do not export because those are only needed when numpy and sklearn required\n\n# import numpy as np\n# \n# from sklearn.base import BaseEstimator, TransformerMixin\n\n\nsource\n\nEmptyFitMixin\n\n EmptyFitMixin ()\n\nInitialize self. See help(type(self)) for accurate signature.\n\n# do not export because this creates a sklearn dependency\n\nclass TextFromColumns(EmptyFitMixin, BaseEstimator, TransformerMixin):\n    \"\"\"Extract the text from a list of columns in a single pass.\n\n    Takes a pandas dataframe and produces a series of texts\n    from joined columns defined in `text_cols`.\n    \"\"\"\n\n    def __init__(self, columns=[\"title\", \"body\"]):\n        self.text_cols = columns\n\n    def transform(self, df):\n        def join(items, axis=None):\n            return \" \".join([str(item) for item in items])\n\n        data = df[self.text_cols].apply(lambda x: \"\" if x.iloc[0] is None else x, axis=1)\n        texts = data.apply(join, axis=1)\n        return texts\n\n\nclass TextFromColumns2(EmptyFitMixin, BaseEstimator, TransformerMixin):\n    \"\"\"Extract the text from a list of columns in a single pass.\n\n    Takes a pandas dataframe and produces a series of texts\n    from joined columns defined in `text_cols`.\n    \"\"\"\n    text_cols = [\"title\", \"body\"]\n\n    def transform(self, df):\n        def join(items, axis=None):\n            return \" \".join([str(item) for item in items])\n\n        data = df[self.text_cols].apply(lambda x: \"\" if x.iloc[0] is None else x, axis=1)\n        texts = data.apply(join, axis=1)\n        return texts\n\n\n# do not export because it creates a numpy dependency\n\nclass TextStats(BaseEstimator, EmptyFitMixin, TransformerMixin):\n    \"\"\"Extract features from each document\"\"\"\n\n    def transform(self, col):\n        tc = col.str\n        features = [\n            tc.len(),  # character count\n            tc.count(r\"\\n\"),  # line count\n            tc.count(r\"\\.\"),  # sentence count\n            tc.split().apply(lambda x: len(x) if x is not None else 0),  # word count\n        ]\n        features = np.concatenate([f.values.reshape(-1, 1) for f in features], axis=1)\n        where_are_NaNs = np.isnan(features)\n        features[where_are_NaNs] = 0\n        return features.astype(np.float64)\n\n\n# do not export\n\nclass ColumnSelector(EmptyFitMixin, BaseEstimator, TransformerMixin):\n    def __init__(self, column, filter_none=True):\n        self.column = column\n        self.filter_none = filter_none\n\n    def transform(self, df):\n        col = df[self.column]\n        if self.filter_none:\n            col = col.apply(lambda x: \"\" if x is None else x)\n        return col"
+  },
+  {
+    "objectID": "datasets.html",
+    "href": "datasets.html",
+    "title": "datasets",
+    "section": "",
+    "text": "source\n\nbuild_reuters_dataframe\n\n build_reuters_dataframe (docs, topics, train_labels, test_labels,\n                          top_ten_ids, pd=None)\n\n\nsource\n\n\nReutersCorpus\n\n ReutersCorpus (raw_docs, multiclass=False, filter_empty_cats=True)\n\nInitialize self. See help(type(self)) for accurate signature.\n\nsource\n\n\nReutersParser\n\n ReutersParser ()\n\nInitialize self. See help(type(self)) for accurate signature."
+  },
+  {
+    "objectID": "io.html",
+    "href": "io.html",
+    "title": "io",
+    "section": "",
+    "text": "source\n\ndownload_from_url\n\n download_from_url (url:str, dst:pathlib.Path, chunk_size=2048)\n\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nurl\nstr\n\nurl to download\n\n\ndst\nPath\n\nthe path of the destination file\n\n\nchunk_size\nint\n2048\noptional chunk_size for response.iter_bytes\n\n\nReturns\nint\n\nthe file size\n\n\n\n\narchive_name = \"reuters21578.tar.gz\"\ntraining_data_url = \"http://www.daviddlewis.com/resources/testcollections/reuters21578/{}\".format(archive_name)\ndata_root = Path.cwd() / \"data\"\ntraining_data_path = data_root / archive_name\ndata_size = download_from_url(training_data_url, training_data_path)\nprint(data_size)\n\n8150596"
+  }
+]
